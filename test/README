@@ -9,3 +9,15 @@ in the development cycle.
 
 More information about PlatformIO Unit Testing:
 - https://docs.platformio.org/en/latest/advanced/unit-testing/index.html
+
+
+	arkhipenko/TM1650@^1.1.0
+	contrem/arduino-timer@^2.3.1
+	marcoschwartz/LiquidCrystal_I2C@^1.1.4
+	saviocmc/Arduino-Photosensor@^1.0
+	robtillaart/ACS712@^0.3.5
+
+
+    adafruit/Adafruit BME680 Library@^2.0.2
+	adafruit/Adafruit BusIO@^1.14.1
+	
