@@ -72,12 +72,12 @@ void setup()
   Serial.print("ACS712_LIB_VERSION: ");
   Serial.println(ACS712_LIB_VERSION);
   
-  // lcd.init();   
-  // lcd.begin(20, 4);
+  lcd.init();   
+  lcd.begin(20, 4);
   // //lcd.setBacklightPin(BACKLIGHT_PIN, POSITIVE);
-  // lcd.setBacklight(BL_ON);
+  lcd.setBacklight(BL_ON);
 
-  // lcd.clear();
+  lcd.clear();
 
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
@@ -101,26 +101,26 @@ void loop()
   float f2 = ACS.getmVperAmp ();
   float f3=ACS.getmAPerStep();
 
-  // lcd.setCursor(0, 0);
-  // lcd.print("mA_DC: ");
-  // lcd.print(f1, 1);
+  lcd.setCursor(0, 0);
+  lcd.print("mA_DC: ");
+  lcd.print(f1, 1);
   
 
 
   
-  // lcd.setCursor(0, 1);
-  // lcd.print("Vm per A ");
-  // lcd.print(f2);
+  lcd.setCursor(0, 1);
+  lcd.print("Vm per A ");
+  lcd.print(f2);
 
   
 
-  // lcd.setCursor(0,2);
-  // lcd.print("Am per Step ");
-  // lcd.print(f3);
+  lcd.setCursor(0,2);
+  lcd.print("Am per Step ");
+  lcd.print(f3);
 
-  // lcd.setCursor(0,3);
-  // lcd.print("A0 Raw ");
-  // lcd.print(analogRead(A0));
+  lcd.setCursor(0,3);
+  lcd.print("A0 Raw ");
+  lcd.print(analogRead(A0));
 
   delay(1000);
   
