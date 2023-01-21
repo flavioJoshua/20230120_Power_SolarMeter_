@@ -1,7 +1,6 @@
 #include <Arduino.h>
 
 
-//
 //    FILE: ACS712_20_AC.ino
 //  AUTHOR: Rob Tillaart
 // PURPOSE: demo AC measurement with point to point
@@ -47,7 +46,20 @@ uint32_t lastDisplay = 0;
 #define SCREEN_ADDRESS 0x3C///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+#if defined (ARDUINO_ARCH_SAMD)
+  #include "arduino_secrets.h"
+  #include "thingProperties.h"
+  #if OTA_STORAGE_SNU
+    #  include <SNU.h>
+    #  include <WiFiNINA.h> /* WiFiStorage */
+  #endif
+#elif defined (ARDUINO_ARCH_ESP8266)
+  #include "arduino_secrets.h"
+  #include "thingProperties.h"
 
+#endif
+ 
+//
 
 #include "ACS712.h"
 
@@ -63,15 +75,67 @@ ACS712  ACS(A0, 3.3, 1023, 66);
 //  ACS712  ACS(25, 3.3, 4095, 185);
 
 
+void doThisOnConnect(){
+  /* add your custom code here */
+  Serial.println("Board successfully connected to Arduino IoT Cloud");
+}
+void doThisOnSync(){
+  /* add your custom code here */
+  Serial.println("Thing Properties synchronised");
+}
+void doThisOnDisconnect(){
+  /* add your custom code here */
+  Serial.println("Board disconnected from Arduino IoT Cloud");
+}
+
+
+
+
+ /// @brief la funzione per nizializzare la Cloud di Arduino aggiungere  ThingProperties e arduino_secrets.h
+    void initArduinoMKR_Cloud()
+    {// Defined in thingProperties.h
+        initProperties();
+        
+        // Connect to Arduino IoT Cloud
+        ArduinoCloud.begin(ArduinoIoTPreferredConnection);
+
+       /*
+      Invoking `addCallback` on the ArduinoCloud object allows you to subscribe
+      to any of the available events and decide which functions to call when they are fired.
+      The functions `doThisOnConnect`, `doThisOnSync`, `doThisOnDisconnect`
+      are custom functions and can be named to your likings and for this example
+      they are defined/implemented at the bottom of the Sketch
+  */
+        ArduinoCloud.addCallback(ArduinoIoTCloudEvent::CONNECT, doThisOnConnect);
+        ArduinoCloud.addCallback(ArduinoIoTCloudEvent::SYNC, doThisOnSync);
+        ArduinoCloud.addCallback(ArduinoIoTCloudEvent::DISCONNECT, doThisOnDisconnect);
+
+        /*
+            The following function allows you to obtain more information
+            related to the state of network and IoT Cloud connection and errors
+            the higher number the more granular information you’ll get.
+            The default is 0 (only errors).
+            Maximum is 4  DBG_VERBOSE
+        */
+        setDebugMessageLevel(DBG_VERBOSE);
+        ArduinoCloud.printDebugInfo();
+  }
+
+
+
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial);
-
+  for(unsigned long const serialBeginTime = millis(); (millis() - serialBeginTime > 5000); ) { }  
+  
+  #pragma region ACS712
   Serial.println(__FILE__);
   Serial.print("ACS712_LIB_VERSION: ");
   Serial.println(ACS712_LIB_VERSION);
-  
+  #pragma endregion
+
+
+#pragma  region HD44780
   lcd.init();   
   lcd.begin(20, 4);
   // //lcd.setBacklightPin(BACKLIGHT_PIN, POSITIVE);
@@ -84,10 +148,11 @@ void setup()
     Serial.println(F("SSD1306 allocation failed"));
     for(;;); // Don't proceed, loop forever
   }
-
+#pragma endregion
 
   ACS.autoMidPoint();
 
+  initArduinoMKR_Cloud();
 }
 
 
@@ -166,3 +231,5 @@ void loop()
 
 
 // -- END OF FILE --
+
+
