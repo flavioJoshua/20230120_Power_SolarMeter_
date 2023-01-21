@@ -227,9 +227,35 @@ void loop()
 
   display.display();
   // delay(1000);
+    if (ArduinoCloud.connected())
+    Serial.println("it's  joined  to ArdinoCloud");
+  else
+  {
+      Serial.println("it's not yet joined to ARduino Cloud ") ;
+  }
+  #if  defined(ARDUINO_ARCH_SAMD) ||  defined(ONLINE) || defined(ESP8266)
+    ArduinoCloud.update();
+#endif
 }
 
 
 // -- END OF FILE --
 
 
+
+
+/*
+  Since Ampere is READ_WRITE variable, onAmpereChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onAmpereChange()  {
+  // Add your code here to act upon Ampere change
+}
+
+/*
+  Since MAmpere is READ_WRITE variable, onMAmpereChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onMAmpereChange()  {
+  // Add your code here to act upon MAmpere change
+}
