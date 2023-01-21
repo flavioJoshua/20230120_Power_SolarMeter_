@@ -14,6 +14,7 @@
   #define SECRET_PASS "xxxxx"
 
 #endif
+#error "information are not real please  replace  with real info"
 
 /* ESP8266  -secretKey  secondoD1r2 */
 #if defined(BOARD_ESP)
