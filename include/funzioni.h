@@ -9,7 +9,7 @@ const int delayShort = 150;//250
 const int delayAvarge = 350;//500
 const int delayLong = 500;//1000
 
-#if  defined(ARDUINO_ARCH_SAMD)
+#if  defined(ARDUINO_ARCH_SAMD) ||  defined(ESP8266)
     // #include "arduino_secrets.h"
     // #include <ArduinoIoTCloud.h>
     // #include <Arduino_ConnectionHandler.h>

@@ -46,6 +46,7 @@ uint32_t lastDisplay = 0;
 #define SCREEN_ADDRESS 0x3C///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+#include "funzioni.h"
 #if defined (ARDUINO_ARCH_SAMD)
   #include "arduino_secrets.h"
   #include "thingProperties.h"
@@ -87,7 +88,6 @@ void doThisOnDisconnect(){
   /* add your custom code here */
   Serial.println("Board disconnected from Arduino IoT Cloud");
 }
-
 
 
 
@@ -242,8 +242,6 @@ void loop()
 // -- END OF FILE --
 
 
-
-
 /*
   Since Ampere is READ_WRITE variable, onAmpereChange() is
   executed every time a new value is received from IoT Cloud.
@@ -258,4 +256,28 @@ void onAmpereChange()  {
 */
 void onMAmpereChange()  {
   // Add your code here to act upon MAmpere change
+}
+
+/*
+  Since A0Raw is READ_WRITE variable, onA0RawChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onA0RawChange()  {
+  // Add your code here to act upon A0Raw change
+}
+
+/*
+  Since MAxStep is READ_WRITE variable, onMAxStepChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onMAxStepChange()  {
+  // Add your code here to act upon MAxStep change
+}
+
+/*
+  Since MVxA is READ_WRITE variable, onMVxAChange() is
+  executed every time a new value is received from IoT Cloud.
+*/
+void onMVxAChange()  {
+  // Add your code here to act upon MVxA change
 }

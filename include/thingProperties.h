@@ -8,11 +8,18 @@
   #error "Please check Arduino IoT Cloud supported boards list: https://github.com/arduino-libraries/ArduinoIoTCloud/#what"
 #endif
 
+
 void onAmpereChange();
 void onMAmpereChange();
+void onA0RawChange();
+void onMAxStepChange();
+void onMVxAChange();
 
 CloudElectricCurrent ampere;
 float mAmpere;
+int a0Raw;
+int mAxStep;
+int mVxA;
 
 
 void initProperties() {
@@ -26,10 +33,13 @@ void initProperties() {
 #if defined(BOARD_HAS_WIFI) || defined(BOARD_HAS_GSM) || defined(BOARD_HAS_NB)
   ArduinoCloud.addProperty(ampere, READWRITE, ON_CHANGE, onAmpereChange);
   ArduinoCloud.addProperty(mAmpere, READWRITE, ON_CHANGE, onMAmpereChange);
+  ArduinoCloud.addProperty(a0Raw, READWRITE, ON_CHANGE, onA0RawChange);
+  ArduinoCloud.addProperty(mAxStep, READWRITE, ON_CHANGE, onMAxStepChange);
+  ArduinoCloud.addProperty(mVxA, READWRITE, ON_CHANGE, onMVxAChange);
 #elif defined(BOARD_HAS_LORA)
   ArduinoCloud.addProperty(ampere,3, READWRITE, ON_CHANGE, onAmpereChange);
   ArduinoCloud.addProperty(mAmpere,3, READWRITE, ON_CHANGE, onMAmpereChange);
-
+    /// ... to complete .... 
 #endif
 }
 
