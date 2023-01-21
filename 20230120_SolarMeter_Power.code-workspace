@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.cpp": "cpp",
+			"*.ps1": "powershell",
+			"arduino_connectionhandler.h": "c"
+		},
+		"git.allowForcePush": true
+	}
+}

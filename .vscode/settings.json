@@ -3,5 +3,6 @@
         "*.cpp": "cpp",
         "*.ps1": "powershell",
         "arduino_connectionhandler.h": "c"
-    }
+    },
+    "git.allowForcePush": true
 }
