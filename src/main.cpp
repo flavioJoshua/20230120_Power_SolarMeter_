@@ -1,3 +1,7 @@
+// Comment this out to disable prints and save space
+#define BLYNK_PRINT Serial
+#define BLYNK_DEBUG
+
 #include <Arduino.h>
 
 
@@ -61,8 +65,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #endif
  
 
-// Comment this out to disable prints and save space
-#define BLYNK_PRINT Serial
+
 
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
@@ -271,14 +274,21 @@ void updateBlynkCloud()
 {
   Serial.println("updateBlynkCloud   update Variable");
   float f1 = ACS.mA_DC();
-  float f2 = ACS.getmVperAmp ();
-  float f3=ACS.getmAPerStep();
+  // float f2 = ACS.getmVperAmp ();
+  // float f3=ACS.getmAPerStep();
   int f4=analogRead(A0);
 
   /// @brief mAmpere  with unit Ampere
   Blynk.virtualWrite(V0, f1); 
   /// @brief mAmpere  without unit
   Blynk.virtualWrite(V1, f1); 
+  
+  /// @brief  for make other aggregate  func  of Value  one for  each VirtualPin
+  Blynk.virtualWrite(V3,f1);
+  /// @brief  for make other aggregate  func  of Value  one for  each VirtualPin
+  Blynk.virtualWrite(V4,f1);
+
+
   /// @brief AnalogRaw Value
   Blynk.virtualWrite(V2, f4); 
 
@@ -301,6 +311,7 @@ void loop()
   #if  defined(ARDUINO_ARCH_SAMD) ||  defined(ONLINE) || defined(ESP8266)
     ArduinoCloud.update();
     Blynk.run();
+    
 #endif
 }
 

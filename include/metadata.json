@@ -1,0 +1,11 @@
+{
+  "timezone" : "Europe/Rome",
+  "device" : {
+    "name" : "BoardSolarMeter",
+    "owner" : "iscrizioni@italiancyberteam.it",
+    "organizationPath" : "/Blynk/Clients/My organization - 7232HL"
+  },
+  "exported_by" : "iscrizioni@italiancyberteam.it",
+  "exported_at" : "2023-01-22T17:48:39+01:00",
+  "timezone_offset" : "+01:00"
+}
