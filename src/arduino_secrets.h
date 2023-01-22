@@ -46,3 +46,15 @@
   #define SECRET_LOGIN ""
   #define SECRET_PASS ""
 #endif
+
+#pragma region Blynk
+
+#define BLYNK_TEMPLATE_ID "xxxxxxxPat9hf"
+#define BLYNK_DEVICE_NAME "xxxxxxxeter"
+#define BLYNK_AUTH_TOKEN "xxxxxxxxxxxxxbbnWnke"
+
+// You should get Auth Token in the Blynk App.
+// Go to the Project Settings (nut icon).
+char auth[] = "xxxxxxxxxxxxbbnWnke";
+
+#pragma endregion
