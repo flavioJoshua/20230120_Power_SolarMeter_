@@ -1,4 +1,4 @@
-# Misure Ampere Consume  cross AC712 
+# Misure Ampere Consume  by AC712 
 ##  you can used it  on SolarVoltage Controller
 
 ## Components 
