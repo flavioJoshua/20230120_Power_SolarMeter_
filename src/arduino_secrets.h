@@ -55,6 +55,6 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "xxxxxxxxxxxxbbnWnke";
+//char auth[] = "xxxxxxxxxxxxbbnWnke";
 
 #pragma endregion
