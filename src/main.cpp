@@ -60,6 +60,23 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #endif
  
+
+// Comment this out to disable prints and save space
+#define BLYNK_PRINT Serial
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+char auth[] = BLYNK_AUTH_TOKEN;
+
+// Your WiFi credentials.
+// Set password to "" for open networks.
+char ssid[] = SECRET_SSID;
+char pass[] = SECRET_PASS;
+
+
+
+
 //
 
 #include "ACS712.h"
@@ -119,6 +136,8 @@ void doThisOnDisconnect(){
         */
         setDebugMessageLevel(DBG_VERBOSE);
         ArduinoCloud.printDebugInfo();
+
+        Blynk.begin(auth, ssid, pass);
   }
 
 
@@ -155,8 +174,8 @@ void setup()
   initArduinoMKR_Cloud();
 }
 
-
-void loop()
+/// @brief  func display  for loop function
+void dislayLoop()
 {
   lcd.clear();
 
@@ -226,6 +245,52 @@ void loop()
   display.println(analogRead(A0));
 
   display.display();
+
+}
+
+/// @brief update the value ACS712 on display also on Variable ArduinoCloud
+void updateArduinoCloud()
+{
+  Serial.println("updateArdinoCloud  update Variable");
+  float f1 = ACS.mA_DC();
+  float f2 = ACS.getmVperAmp ();
+  float f3=ACS.getmAPerStep();
+  int f4=analogRead(A0);
+
+  mAmpere=f1;
+  ampere=f1;
+  a0Raw=f4;
+  mAxStep=f3;
+  mVxA=f2;
+  // Serial.println("updateArdinoCloud  Ended update Variable");
+}
+
+
+/// @brief updating value local sensor to Blynk Cloud on loop func
+void updateBlynkCloud()
+{
+  Serial.println("updateBlynkCloud   update Variable");
+  float f1 = ACS.mA_DC();
+  float f2 = ACS.getmVperAmp ();
+  float f3=ACS.getmAPerStep();
+  int f4=analogRead(A0);
+
+  /// @brief mAmpere  with unit Ampere
+  Blynk.virtualWrite(V0, f1); 
+  /// @brief mAmpere  without unit
+  Blynk.virtualWrite(V1, f2); 
+  /// @brief AnalogRaw Value
+  Blynk.virtualWrite(V2, f4); 
+
+}
+
+void loop()
+{
+  dislayLoop();
+  updateArduinoCloud();
+  updateBlynkCloud();
+
+
   // delay(1000);
     if (ArduinoCloud.connected())
     Serial.println("it's  joined  to ArdinoCloud");
@@ -235,13 +300,14 @@ void loop()
   }
   #if  defined(ARDUINO_ARCH_SAMD) ||  defined(ONLINE) || defined(ESP8266)
     ArduinoCloud.update();
+    Blynk.run();
 #endif
 }
 
 
 // -- END OF FILE --
 
-
+#pragma region Evet ArduinoCloud
 /*
   Since Ampere is READ_WRITE variable, onAmpereChange() is
   executed every time a new value is received from IoT Cloud.
@@ -281,3 +347,30 @@ void onMAxStepChange()  {
 void onMVxAChange()  {
   // Add your code here to act upon MVxA change
 }
+
+#pragma endregion
+
+
+#pragma region Blynk Events
+
+BLYNK_CONNECTED()
+{
+  Serial.println("Blynk Connected event: nitialize   Vpin Value ");
+  // Blynk.syncVirtual(V1); // will cause BLYNK_WRITE(V0) to be executed
+  // Blynk.syncVirtual(V2); // will cause BLYNK_WRITE(V0) to be executed
+
+}
+
+
+// This function will be called every time Slider Widget
+// in Blynk app writes values to the Virtual Pin V1
+BLYNK_WRITE(V1)
+{
+  int pinValue = param.asInt(); // assigning incoming value from pin V1 to a variable
+
+  // process received value
+}
+
+
+
+#pragma endregion
