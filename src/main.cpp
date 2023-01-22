@@ -278,7 +278,7 @@ void updateBlynkCloud()
   /// @brief mAmpere  with unit Ampere
   Blynk.virtualWrite(V0, f1); 
   /// @brief mAmpere  without unit
-  Blynk.virtualWrite(V1, f2); 
+  Blynk.virtualWrite(V1, f1); 
   /// @brief AnalogRaw Value
   Blynk.virtualWrite(V2, f4); 
 
@@ -290,7 +290,7 @@ void loop()
   updateArduinoCloud();
   updateBlynkCloud();
 
-
+   
   // delay(1000);
     if (ArduinoCloud.connected())
     Serial.println("it's  joined  to ArdinoCloud");
