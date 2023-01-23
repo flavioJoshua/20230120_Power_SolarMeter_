@@ -7,4 +7,6 @@
 - SSD1306 0.96" OLED Display
 - HD44780 display LCD 20 x 4
 
+there  are  two display alternative on I2C  channel, HD44780  and  Oled SSD1306 , or also can  function on the same time.
+
 ### Arduino Cloud 
