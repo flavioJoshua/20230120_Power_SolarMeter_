@@ -1,6 +1,6 @@
 // Comment this out to disable prints and save space
 #define BLYNK_PRINT Serial
-#define BLYNK_DEBUG
+//#define BLYNK_DEBUG
 
 #include <Arduino.h>
 
