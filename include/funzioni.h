@@ -1,3 +1,5 @@
+#include "util/define_debug.h"
+
 void testfunc();
 int freeRam() ;
 void display_freeram();

@@ -1,4 +1,4 @@
-#define funzionuiV1
+#define funzionuiV2.0
 
 #include <Arduino.h>
 #include "funzioni.h"

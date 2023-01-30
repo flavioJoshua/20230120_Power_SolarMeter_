@@ -1,6 +1,10 @@
 {
 	"folders": [
 		{
+			"name": "20230129_test_MultiWifi",
+			"path": "../20230129_test_MultiWifi"
+		},
+		{
 			"path": "."
 		}
 	],
